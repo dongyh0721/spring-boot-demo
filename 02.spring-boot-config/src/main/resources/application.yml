@@ -1,0 +1,6 @@
+spring:
+  banner:
+    location: classpath:banner.txt
+student:
+  name: 'xiao ming'
+  age: 18
