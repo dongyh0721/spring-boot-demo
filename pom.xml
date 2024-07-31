@@ -16,6 +16,7 @@
     </properties>
     <modules>
         <module>01.spring-boot-start</module>
+        <module>02.spring-boot-config</module>
     </modules>
     <dependencies>
         <dependency>
@@ -50,6 +51,7 @@
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
                 <configuration>
                     <compilerArgs>
                         <arg>-parameters</arg>

@@ -3,13 +3,14 @@
 .idea
 # Log file
 *.log
-
+target/
 # BlueJ files
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
+!**/src/main/**/target/
+!**/src/test/**/target/
 # Package Files #
 *.jar
 *.war
