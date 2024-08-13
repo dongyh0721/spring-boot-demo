@@ -1,0 +1,12 @@
+spring:
+  config:
+    import:
+      - classpath:datasource-config.yml
+mybatis:
+  configuration:
+    # 开启驼峰映射
+    map-underscore-to-camel-case: true
+  # 指定mapper.xml路径
+  mapper-locations: classpath:mapper/*.xml
+pagehelper:
+  helperDialect: mysql

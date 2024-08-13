@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="spring.boot.orm.mybatis.mapper.TeacherMapper">
+    <resultMap id="oneToOneMap" type="spring.boot.orm.mybatis.dto.TeacherDto">
+        <id column="teacher_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <association property="student" javaType="spring.boot.orm.mybatis.bean.Student">
+            <id column="student_id" property="id"/>
+            <result column="student_name" property="name"/>
+            <result column="student_age" property="age"/>
+            <result column="student_gender" property="gender"/>
+            <result column="teacher_id" property="teacherId"/>
+        </association>
+    </resultMap>
+    <select id="oneToOne" resultMap="oneToOneMap">
+        select s.teacher_id,
+               t.name,
+               t.age,
+               t.gender,
+               s.id     as student_id,
+               s.name   as student_name,
+               s.age    as student_age,
+               s.gender as student_gender
+        from teacher t
+                 join student s on t.id = s.teacher_id
+        where t.id = #{teacherId}
+          and s.id = #{studentId}
+    </select>
+    <resultMap id="oneToManyMap" type="spring.boot.orm.mybatis.dto.TeacherDto">
+        <id column="teacher_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <collection property="studentList" ofType="spring.boot.orm.mybatis.bean.Student">
+            <id column="student_id" property="id"/>
+            <result column="student_name" property="name"/>
+            <result column="student_age" property="age"/>
+            <result column="student_gender" property="gender"/>
+            <result column="teacher_id" property="teacherId"/>
+        </collection>
+    </resultMap>
+    <select id="oneToMany" resultMap="oneToManyMap">
+        select
+            s.teacher_id,
+            t.name,
+            t.age,
+            t.gender,
+            s.id as student_id,
+            s.name as student_name,
+            s.age as student_age,
+            s.gender as student_gender
+        from teacher t
+        join student s on t.id = s.teacher_id
+    </select>
+    <resultMap id="pageOneToManyMap" type="spring.boot.orm.mybatis.dto.TeacherDto">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <collection property="studentList" javaType="spring.boot.orm.mybatis.bean.Student" column="teacher_id" select="selectStudentByTeacherId">
+        </collection>
+    </resultMap>
+    <select id="pageOneToMany" resultMap="pageOneToManyMap">
+        select
+            t.id,
+            t.name,
+            t.age,
+            t.gender
+        from teacher t
+    </select>
+    <select id="selectStudentByTeacherId">
+        select id,
+               teacher_id,
+               name,
+               age,
+               gender
+        from student
+        where teacher_id = #{teacher_id}
+    </select>
+</mapper>

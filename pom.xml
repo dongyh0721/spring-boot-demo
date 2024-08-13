@@ -17,6 +17,7 @@
     <modules>
         <module>01.spring-boot-start</module>
         <module>02.spring-boot-config</module>
+        <module>03.spring-boot-orm</module>
     </modules>
     <dependencies>
         <dependency>
